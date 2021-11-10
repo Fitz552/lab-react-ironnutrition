@@ -118,15 +118,19 @@ function FoodList(props) {
                 </div>
                 <div className="column">
                     <p className="is-size-4">Today's foods</p>
-                        {today.length>0 ? today.map(todayFood=> {
+                        <ol className = "m-2">
+                        {today.length>0 ? today.map((todayFood,index)=> {
                             return (
-                                <div>
+                                <li className="columns m-2 is-vcentered" key={index}>
                                     <p>{todayFood.name} = {todayFood.quantity}</p>
-                                    <button id={todayFood.name} onClick={onDeleteClick}>delete</button>
-                                </div>
+                                    <button className = "button is-white ml-2" id={todayFood.name} onClick={onDeleteClick}>
+                                        <i className="far fa-trash-alt"></i>
+                                    </button>
+                                </li>
                             )
                         }): (<p></p>)}
-                    <p className="is-size-6">{`Total: ${currentCalories()} cal`}</p>
+                        </ol>
+                    <p className="is-size-6 m-2">{`Total: ${currentCalories()} cal`}</p>
                 </div>                   
             </div>
             <div className="columns is-centered">
