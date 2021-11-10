@@ -94,6 +94,12 @@ function FoodList(props) {
         return today.reduce((previous, current) => {return previous + parseInt(current.calories)*parseInt(current.quantity)},0 )
     }
 
+    function onDeleteClick(event) {
+        let todayArray = [...today]
+        todayArray = todayArray.filter(value => {return value.name !== event.target.id})
+        setToday(todayArray)
+    }
+
     return(
         <div className="m-2">
             <p className="is-size-3"> IronNutrition </p>
@@ -116,6 +122,7 @@ function FoodList(props) {
                             return (
                                 <div>
                                     <p>{todayFood.name} = {todayFood.quantity}</p>
+                                    <button id={todayFood.name} onClick={onDeleteClick}>delete</button>
                                 </div>
                             )
                         }): (<p></p>)}
