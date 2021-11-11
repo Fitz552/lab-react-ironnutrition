@@ -49,7 +49,6 @@ function FoodList(props) {
         })
 
         setFoods(updatedFood);
-        console.log(today)
     }
 
     function onSearch(event) {
@@ -71,11 +70,9 @@ function FoodList(props) {
         
         if (newFoodToday.length > 0) {
             alreadyIncluded = foodToday.filter(food => {return food.name === newFoodToday[0].name}).length
-            console.log(alreadyIncluded)
             if (alreadyIncluded > 0) {
                 foodToday.map(food => {
                     if (food.name === newFoodToday[0].name) {
-                        console.log("called")
                         food.quantity = parseInt(food.quantity)+parseInt(newFoodToday[0].quantity)
                         return food
                     }
@@ -95,8 +92,12 @@ function FoodList(props) {
     }
 
     function onDeleteClick(event) {
-        let todayArray = [...today]
-        todayArray = todayArray.filter(value => {return value.name !== event.target.id})
+        console.log("called")
+        console.log(event.target.id)
+        console.log(event.target)
+        let todayArray = today.map(food => {return {...food}})
+        todayArray = todayArray.filter(value => {return (`btn-${value.name}` !== event.target.id && `img-${value.name}` !== event.target.id )})
+        console.log(todayArray)
         setToday(todayArray)
     }
 
@@ -123,9 +124,9 @@ function FoodList(props) {
                             return (
                                 <li className="columns m-2 is-vcentered" key={index}>
                                     <p>{todayFood.name} = {todayFood.quantity}</p>
-                                    <button className = "button is-white ml-2" id={todayFood.name} onClick={onDeleteClick}>
-                                        <i className="far fa-trash-alt"></i>
-                                    </button>
+                                    <a className = "button is-white ml-2" id={`btn-${todayFood.name}`} onClick={onDeleteClick}>
+                                        <i aria-hidden="true" id={`img-${todayFood.name}`} className="far fa-trash-alt"></i>
+                                    </a>
                                 </li>
                             )
                         }): (<p></p>)}
